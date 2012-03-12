@@ -46,7 +46,6 @@ namespace Runtime
 
             var runner = new Converter();
             Console.WriteLine("About to run chains....");
-            Console.WriteLine();
             foreach (var chain in graph.Chains)
             {
                 Console.WriteLine();

@@ -14,7 +14,7 @@ namespace BehaviourChainDemo.SimpleBehaviors
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error Handler:          There was an error - " + ex.Message);
+                Console.WriteLine("Error Handler:          There was an error - " + ex.Message + ". Notice how the other behaviours didn't execute after me?");
 
                 Inner = null; // Handling this ourself now
             }
