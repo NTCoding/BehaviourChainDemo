@@ -4,12 +4,12 @@ namespace BehaviourChainDemo.SimpleBehaviors
 {
     public class Emily : Behaviour
     {
-        protected override void ExecutePreAction()
+        protected override void BeforeInnerBehaviour()
         {
             Console.WriteLine("Emily:   Grooooooooooooooooooowwwwwwl");
         }
 
-        protected override void ExecutePostAction()
+        protected override void AfterInnerBehaviour()
         {
 
         }

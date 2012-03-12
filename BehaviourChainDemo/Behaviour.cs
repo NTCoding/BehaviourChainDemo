@@ -4,11 +4,11 @@
     {
         public void Invoke()
         {
-            ExecutePreAction();
+            BeforeInnerBehaviour();
 
             if (!IsEndOfChain()) Inner.Invoke();
 
-            ExecutePostAction();
+            AfterInnerBehaviour();
         }
 
         private bool IsEndOfChain()
@@ -18,8 +18,8 @@
 
         public Behaviour Inner { get; set; }
 
-        protected abstract void ExecutePreAction();
+        protected abstract void BeforeInnerBehaviour();
 
-        protected abstract void ExecutePostAction();
+        protected abstract void AfterInnerBehaviour();
     }
 }

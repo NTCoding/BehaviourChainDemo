@@ -4,7 +4,7 @@ namespace BehaviourChainDemo.SimpleBehaviors
 {
     public class ErrorHandlingBehaviour : Behaviour
     {
-        protected override void ExecutePreAction()
+        protected override void BeforeInnerBehaviour()
         {
             // we will take control of this chain now
             Console.WriteLine("Error Handler:             I've got this action covered");
@@ -20,7 +20,7 @@ namespace BehaviourChainDemo.SimpleBehaviors
             }
         }
 
-        protected override void ExecutePostAction()
+        protected override void AfterInnerBehaviour()
         {
         }
     }

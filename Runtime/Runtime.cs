@@ -3,9 +3,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BehaviourChainDemo;
+using BehaviourChainDemo.BehavioursWithDependencies;
 using BehaviourChainDemo.Executors;
+using BehaviourChainDemo.Services;
 using BehaviourChainDemo.SimpleBehaviors;
 using NUnit.Framework;
+using StructureMap;
 
 namespace Runtime
 {
@@ -33,7 +36,7 @@ namespace Runtime
             // all chains that talk to db need a session open and closed
             graph.WrapChainsConditionally<NHiberanteSessionBehavior>(chain => chain.Any(node => node.Type == typeof(RepositoryBehavior)));
 
-            // all chains involving Nick need a error handling behaviour
+            // Will take control of the chain and execute how it likes to
             graph.WrapChainsConditionally<ErrorHandlingBehaviour>(chain => chain.Any(node => node.Type == typeof(BrokenNode)));
 
             graph.EnrichChainsConditionally<GregzillaWarning>(chain => chain.Any(node => node.Type == typeof(Gregzilla)));
@@ -55,12 +58,28 @@ namespace Runtime
             }
         }
         
-        // Advanced runtime demo - using IoC to build up the chain
-            // Show how behaviors need access to certain service
+        // Demonstrate how context is passed through the chain using IoC - which also passes in dependencies
+        // this is a benefit of letting the controller instantiate the object and separating configuration
+        // from the runtime
+        [Test]
+        public void IoC_With_Context()
+        {
+            IoC.Container = new Container();
+            IoC.Container.Configure(x =>
+                                        {
+                                            x.For<IRepository>().Use<BlahRepository>();
+                                            x.For<ILogger>().Use<BlahLogger>();
+                                            x.For<IRequest>().Use(new SillyRequest()); // equivalent to Http scoped
+                                        });
 
-        // Example showing context being passed along the chains - but injected with IoC as per FubuMVC
-            // Show conditional logic for behavior executing
-            // maybe a real world demo of opening an NHibernate
+            var chain = new BehaviourChain();
+            chain.Append(new BehaviourNode(typeof(RequestParser)));
+            chain.Append(new BehaviourNode(typeof(RequiresARepository)));
+            chain.Append(new BehaviourNode(typeof(RequiresALogger)));
+            chain.Append(new BehaviourNode(typeof(OutputRenderer)));
 
+            var runner = new IoCRunner();
+            runner.ExecuteBehavioursOf(chain);
+        }
     }
 }

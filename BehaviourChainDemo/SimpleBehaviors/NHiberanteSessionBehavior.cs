@@ -4,12 +4,12 @@ namespace BehaviourChainDemo.SimpleBehaviors
 {
     public class NHiberanteSessionBehavior : Behaviour
     {
-        protected override void ExecutePreAction()
+        protected override void BeforeInnerBehaviour()
         {
             Console.WriteLine("**********       Opening an NHiberante Sesssion      ***** ");
         }
 
-        protected override void ExecutePostAction()
+        protected override void AfterInnerBehaviour()
         {
             Console.WriteLine("**********       Closing an NHibernate Session     ********");
         }
