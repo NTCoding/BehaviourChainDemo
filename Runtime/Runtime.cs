@@ -21,11 +21,12 @@ namespace Runtime
             var chain = new BehaviourChain();
             chain.Append(new BehaviourNode(typeof(Nick)));
             chain.Append(new BehaviourNode(typeof(Emily)));
-            chain.Prepend(new BehaviourNode(typeof(Paul)));
-            chain.Prepend(new BehaviourNode(typeof(Gregzilla)));
+            chain.Prepend(new BehaviourNode(typeof(Paul))); // wraps it
+            chain.Prepend(new BehaviourNode(typeof(Gregzilla))); // wraps it
 
-            var executor = new SimpleChainExecutor();
-            executor.ExecuteBehavioursOf(chain);
+            var converter = new Converter();
+            var behaviours = converter.ConvertBehaviourChainToBehaviours(chain);
+            behaviours.Invoke();
         }
 
         [Test]
@@ -43,18 +44,21 @@ namespace Runtime
 
             // doesn't have to be just type - conventions can apply to anything - e.g. involving namespaces, output types, etc
 
-            var runner = new SimpleChainExecutor();
+            var runner = new Converter();
             Console.WriteLine("About to run chains....");
             Console.WriteLine();
             foreach (var chain in graph.Chains)
             {
-                Console.WriteLine("*******************");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("**********************************************************************");
                 Console.WriteLine( );
                 Console.WriteLine( );
                 Console.WriteLine("About to execute chain...");
                 Console.WriteLine();
                 
-                runner.ExecuteBehavioursOf(chain);
+                var behaviours = runner.ConvertBehaviourChainToBehaviours(chain);
+                behaviours.Invoke();
             }
         }
         
@@ -79,7 +83,8 @@ namespace Runtime
             chain.Append(new BehaviourNode(typeof(OutputRenderer)));
 
             var runner = new IoCRunner();
-            runner.ExecuteBehavioursOf(chain);
+            var behaviours = runner.ConvertBehaviourChainsToBehaviours(chain);
+            behaviours.Invoke();
         }
     }
 }

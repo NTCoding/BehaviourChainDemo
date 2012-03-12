@@ -14,7 +14,7 @@ namespace Runtime
             var noGregZilla = new BehaviourChain();
             noGregZilla.Append(new BehaviourNode(typeof(Nick)));
             noGregZilla.Append(new BehaviourNode(typeof(Emily)));
-            noGregZilla.Append(new BehaviourNode(typeof(Paul)));
+            noGregZilla.Prepend(new BehaviourNode(typeof(Paul)));
 
             graph.Add(noGregZilla);
 

@@ -2,18 +2,18 @@ using System;
 
 namespace BehaviourChainDemo.Executors
 {
-    public class SimpleChainExecutor
+    public class Converter
     {
-        public void ExecuteBehavioursOf(BehaviourChain chain)
+        public Behaviour ConvertBehaviourChainToBehaviours(BehaviourChain chain)
         {
             var top = (Behaviour)Activator.CreateInstance(chain.Top.Type);
 
-            BuildRuntimeChain(chain, top);
+            PopulateBehaviours(chain, top);
 
-            top.Invoke();
+            return top;
         }
 
-        private static void BuildRuntimeChain(BehaviourChain chain, Behaviour top)
+        private static void PopulateBehaviours(BehaviourChain chain, Behaviour top)
         {
             var next = top;
             foreach (var node in chain)

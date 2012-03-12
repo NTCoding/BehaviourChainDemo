@@ -2,16 +2,16 @@ namespace BehaviourChainDemo.Executors
 {
     public class IoCRunner
     {
-        public void ExecuteBehavioursOf(BehaviourChain chain)
+        public Behaviour ConvertBehaviourChainsToBehaviours(BehaviourChain chain)
         {
             var top = (Behaviour)IoC.Container.GetInstance(chain.Top.Type);
 
-            BuildRuntimeChain(chain, top);
+            BuildBehaviours(chain, top);
 
-            top.Invoke();
+            return top;
         }
 
-        private static void BuildRuntimeChain(BehaviourChain chain, Behaviour top)
+        private static void BuildBehaviours(BehaviourChain chain, Behaviour top)
         {
             var next = top;
             foreach (var node in chain)
