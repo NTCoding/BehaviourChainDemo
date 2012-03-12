@@ -24,13 +24,13 @@ namespace Runtime
 
             graph.Add(database);
 
-            var noNick = new BehaviourChain();
-            noNick.Append(new BehaviourNode(typeof(Nick)));
-            noNick.Append(new BehaviourNode(typeof(Emily)));
-            noNick.Prepend(new BehaviourNode(typeof(Paul)));
-            noNick.Prepend(new BehaviourNode(typeof(Gregzilla)));
+            var broken = new BehaviourChain();
+            broken.Append(new BehaviourNode(typeof(Emily)));
+            broken.Append(new BehaviourNode(typeof(BrokenNode)));
+            broken.Prepend(new BehaviourNode(typeof(Paul)));
+            broken.Prepend(new BehaviourNode(typeof(Gregzilla)));
 
-            graph.Add(noNick);
+            graph.Add(broken);
 
             return graph;
         }

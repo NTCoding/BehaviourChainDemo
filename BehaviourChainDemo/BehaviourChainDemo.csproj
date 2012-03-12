@@ -47,10 +47,15 @@
     <Compile Include="BehaviourNode.cs" />
     <Compile Include="Executors\SimpleChainExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleBehaviors\BrokenNode.cs" />
     <Compile Include="SimpleBehaviors\Emily.cs" />
+    <Compile Include="SimpleBehaviors\ErrorHandlingBehaviour.cs" />
     <Compile Include="SimpleBehaviors\Gregzilla.cs" />
+    <Compile Include="SimpleBehaviors\GregzillaWarning.cs" />
+    <Compile Include="SimpleBehaviors\NHiberanteSessionBehavior.cs" />
     <Compile Include="SimpleBehaviors\Nick.cs" />
     <Compile Include="SimpleBehaviors\Paul.cs" />
+    <Compile Include="SimpleBehaviors\RepositoryBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
